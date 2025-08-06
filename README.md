@@ -37,7 +37,7 @@
 	Name: Docker, 
 	Docker from docker.com
 
-#### On Terminal 
+#### ⚙️On Terminal 
 - sudo usermod -a -G docker jenkins
 - sudo systemctl  restart jenkins
 - chmod 777 /var/run/docker.sock
