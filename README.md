@@ -12,14 +12,41 @@ Server: Same EC2/VPS running Jenkins (Jenkins on port 8080, site on port 9090)
 Repo: https://github.com/MgELevateLabsInternship/knights
 
 ### 🧾 Prerequisites
+- EC2 server
+- Jenkins installed and running on port 808
+- Docker installed and running
 
-Jenkins installed and running on port 8080
+### Configure Jenkins
+- GitHub credentials stored in Jenkins (ID: git_credentials)
+- DockerHub credentials stored in Jenkins (ID: docker_credentials)
+- Plugins: install without restart
+  - openjdk --Eclips terminal install,openjdk--native-plugin
+  - docker --- Docker,Docker Pipeline,docker-build-step,CloudBees Docker build,publish
 
-Docker installed and running
+- Global Tool Config
+  - JDK
+     Add JDK
+	 - OpenJDK8
+	   Install automatically
+	   Add Installer -- Install from adoptium.net
+	   select version
+	
+	 - OpenJDK11
+	   Install automatically
+	   Add Installer -- Install from adoptium.net
+	   select version
 
-GitHub credentials stored in Jenkins (ID: git_credentials)
+  - Docker:
+	Name:Docker
+	Docker from docker.com
 
-DockerHub credentials stored in Jenkins (ID: docker_credentials)
+#### On Terminal 
+- sudo usermod -a -G docker jenkins
+- sudo systemctl  restart jenkins
+- chmod 777 /var/run/docker.sock
+- systemctl daemon-reload
+- systemctl restart docker.service
+
 
 Security Group / Firewall rule allows port 9090
 
