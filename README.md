@@ -3,20 +3,17 @@
 #### ✅ Static Website Deployment via Jenkins + Docker + Apache2
 ### 🧱 Project Overview
 
-Goal: Serve a static website (index.html) using Apache2 inside a Docker container
-
-CI/CD: Jenkins pipeline
-
-Server: Same EC2/VPS running Jenkins (Jenkins on port 8080, site on port 9090)
-
-Repo: https://github.com/MgELevateLabsInternship/knights
+- Goal: Serve a static website (index.html) using Apache2 inside a Docker container
+- CI/CD: Jenkins pipeline
+- Server: EC2 running Jenkins (Jenkins on port 8080, site on port 9090)
+- Repo: https://github.com/MgELevateLabsInternship/knights
 
 ### 🧾 Prerequisites
 - EC2 server
 - Jenkins installed and running on port 808
 - Docker installed and running
 
-### Configure Jenkins
+### ⚙️Configure Jenkins
 - GitHub credentials stored in Jenkins (ID: git_credentials)
 - DockerHub credentials stored in Jenkins (ID: docker_credentials)
 - Plugins: install without restart
@@ -26,18 +23,18 @@ Repo: https://github.com/MgELevateLabsInternship/knights
 - Global Tool Config
   - JDK
      Add JDK
-	 - OpenJDK8
+	 - OpenJDK8, 
 	   Install automatically
 	   Add Installer -- Install from adoptium.net
 	   select version
 	
-	 - OpenJDK11
+	 - OpenJDK11, 
 	   Install automatically
 	   Add Installer -- Install from adoptium.net
 	   select version
 
   - Docker:
-	Name:Docker
+	Name: Docker, 
 	Docker from docker.com
 
 #### On Terminal 
@@ -48,11 +45,11 @@ Repo: https://github.com/MgELevateLabsInternship/knights
 - systemctl restart docker.service
 
 
-Security Group / Firewall rule allows port 9090
+- Security Group / Firewall rule allows port 9090
 
 ### 📄 Step 1: Prepare Your Dockerfile
-Place this inside the root of your GitHub repo (knights):
-
+- Place this inside the root of your GitHub repo (knights):
+./scss/Dockerfile
 Dockerfile
 
 FROM ubuntu
@@ -60,13 +57,16 @@ FROM ubuntu
 RUN apt-get update -y && \
     apt-get install -y apache2 curl
 
-// # Optional: Suppress Apache domain name warning
+// Optional: Suppress Apache domain name warning
+
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
-// # Add website files
+// Add website files
+
 ADD . /var/www/html
 
-// # Environment variable (optional)
+// Environment variable (optional)
+
 ENV name Devuser-1
 
 EXPOSE 80
@@ -74,11 +74,12 @@ EXPOSE 80
 ENTRYPOINT apachectl -D FOREGROUND
 
 ### 📜 Step 2: Jenkins Pipeline Script
-Use this Declarative Pipeline in your Jenkins job:
+- Use this Declarative Pipeline in your Jenkins job:
 
 
 
 pipeline {
+
   agent any
 
   environment {
@@ -139,73 +140,62 @@ pipeline {
   }
 }
 
-#### Enable GitHub Webhook in Jenkins Job
-Go to your Jenkins job (freestyle or pipeline)
 
-Click Configure
 
-Under Build Triggers:
-✅ Check “GitHub hook trigger for GITScm polling”
+#### ⚙️Enable GitHub Webhook in Jenkins Job
+- Go to your Jenkins job (freestyle or pipeline)
+- Click Configure
+- Under Build Triggers:
+- ✅ Check “GitHub hook trigger for GITScm polling”
+- Save
 
-Save
-
-#### Add GitHub Webhook
-Go to your GitHub repo:
-👉 https://github.com/MgELevateLabsInternship/knights
-
-Click on Settings > Webhooks > Add Webhook
-
-Use:
-Payload URL: http://<YOUR_JENKINS_PUBLIC_IP>:8080/github-webhook/
-Content type: application/json
-Events: “Just the push event”
-
-Save
+#### ⚙️Add GitHub Webhook
+- Go to your GitHub repo:
+- 👉 https://github.com/MgELevateLabsInternship/knights
+- Click on Settings > Webhooks > Add Webhook
+- Payload URL: http://<YOUR_JENKINS_PUBLIC_IP>:8080/github-webhook/
+- Content type: application/json
+- Events: “Just the push event”
+- Save
 
 
 ### 🌐 Step 3: Configure EC2 Port Access (If applicable)
-For AWS EC2:
-
-Go to EC2 Dashboard > Security Groups
-
-Edit inbound rules
-
-Type: Custom TCP
-
-Port: 9090
-
-Source: 0.0.0.0/0 (or your IP)
-
-Save
+- For AWS EC2:
+- Go to EC2 Dashboard > Security Groups
+- Edit inbound rules
+- Type: Custom TCP
+- Port: 9090
+- Source: 0.0.0.0/0 (or your IP)
+- Save
 
 ### 🔍 Step 4: Verify Deployment
 
-Once pipeline completes:
-
-Visit your website at:
-
-http://<your-server-ip>:9090
+- Once pipeline completes:
+- Visit your website at:
+- http://<your-server-ip>:9090
 
 
-#### If blank or error:
+#### ⚙️If blank or error:
 
-Run: docker exec -it knights1-container ls /var/www/html
+- Run: docker exec -it knights1-container ls /var/www/html
 
-Run: docker exec -it knights1-container curl localhost
+- Run: docker exec -it knights1-container curl localhost
 
-Run: docker logs knights1-container
+- Run: docker logs knights1-container
 
 #### ✅ Troubleshooting Checklist
-Check	Command
-Apache is running	`docker exec -it knights1-container ps aux
-HTML is copied	docker exec -it knights1-container ls /var/www/html
-Apache serving?	docker exec -it knights1-container curl localhost
-Server port open?	curl localhost:9090 on the host machine
-Firewall issue?	Check cloud security group rules
+- Check	Command
+- Apache is running	`docker exec -it knights1-container ps aux
+- HTML is copied	docker exec -it knights1-container ls /var/www/html
+- Apache serving?	docker exec -it knights1-container curl localhost
+- Server port open?	curl localhost:9090 on the host machine
+- Firewall issue?	Check cloud security group rules
 
 ### 🏁 Summary
-✅ Jenkins pulls code from GitHub
-✅ Builds and pushes Docker image
-✅ Deploys container on same server
-✅ Apache serves site on port 9090
-✅ Accessible via browser
+- ✅ Jenkins pulls code from GitHub
+- ✅ Builds and pushes Docker image
+- ✅ Deploys container on same server
+- ✅ Apache serves site on port 9090
+- ✅ Accessible via browser
+
+
