@@ -28,7 +28,6 @@ Place this inside the root of your GitHub repo (knights):
 
 Dockerfile
 
-
 FROM ubuntu
 
 RUN apt-get update -y && \
@@ -112,6 +111,29 @@ pipeline {
     }
   }
 }
+
+#### Enable GitHub Webhook in Jenkins Job
+Go to your Jenkins job (freestyle or pipeline)
+
+Click Configure
+
+Under Build Triggers:
+✅ Check “GitHub hook trigger for GITScm polling”
+
+Save
+
+#### Add GitHub Webhook
+Go to your GitHub repo:
+👉 https://github.com/MgELevateLabsInternship/knights
+
+Click on Settings > Webhooks > Add Webhook
+
+Use:
+Payload URL: http://<YOUR_JENKINS_PUBLIC_IP>:8080/github-webhook/
+Content type: application/json
+Events: “Just the push event”
+
+Save
 
 
 ### 🌐 Step 3: Configure EC2 Port Access (If applicable)
