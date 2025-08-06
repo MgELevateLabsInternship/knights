@@ -49,7 +49,7 @@
 
 ### 📄 Step 1: Prepare Your Dockerfile
 - Place this inside the root of your GitHub repo (knights):
-./scss/Dockerfile
+
 Dockerfile
 
 FROM ubuntu
@@ -170,9 +170,12 @@ pipeline {
 
 ### 🔍 Step 4: Verify Deployment
 
-- Once pipeline completes:
+- Once pipeline completes: run it
+- <img width="1920" height="880" alt="knights_Dockerfile at main · MgELevateLabsInternship_knights - Brave 06-08-2025 16_15_05" src="https://github.com/user-attachments/assets/4cb83028-e7fd-44a1-ade7-ee288e10be4f" />
+- <img width="1920" height="879" alt="knights_Dockerfile at main · MgELevateLabsInternship_knights - Brave 06-08-2025 16_14_32" src="https://github.com/user-attachments/assets/6e8066aa-2be5-41cd-b978-1e943862005b" />
 - Visit your website at:
 - http://<your-server-ip>:9090
+  <img width="1920" height="889" alt="Knights - Free Bootstrap 4 Template by Colorlib - Brave 06-08-2025 17_37_56" src="https://github.com/user-attachments/assets/55d545e7-5f3f-4cc1-93dd-29315ddca9dc" />
 
 
 #### ⚙️If blank or error:
